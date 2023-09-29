@@ -16,3 +16,15 @@ and a CPU model Intel(R) Core(TM) i7-9800X @ 3.80GHz.
 
 # Acknowledgement
 * The codebase is based on [OpenGait](https://github.com/ShiqiYu/OpenGait).
+
+# Citation
+```
+@InProceedings{Wang_2023_ICCV,
+    author    = {Wang, Lei and Liu, Bo and Liang, Fangfang and Wang, Bincheng},
+    title     = {Hierarchical Spatio-Temporal Representation Learning for Gait Recognition},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    month     = {October},
+    year      = {2023},
+    pages     = {19639-19649}
+}
+```
