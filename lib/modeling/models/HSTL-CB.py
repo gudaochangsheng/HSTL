@@ -6,6 +6,7 @@ from ..base_model import BaseModel
 from ..modules import SeparateFCs, BasicConv3d, PackSequenceWrapper, BasicConv2d
 
 # frame-level temporal aggregation (FTA)
+# frame-level temporal aggregation (FTA)
 class FTA(nn.Module):
 
     def __init__(self, channel=64, FP_kernels=[3, 5]):
@@ -89,7 +90,7 @@ class GeMHPP(nn.Module):
     def forward(self, x):
         """
             x  : [n, c, h, w]
-            ret: [n, c, p] 
+            ret: [n, c, p]
         """
         n, c = x.size()[:2]
         features = []
@@ -102,19 +103,23 @@ class GeMHPP(nn.Module):
 
 # adaptive spatio-temporal pooling
 class ASTP(nn.Module):
-    def __init__(self, split_param, m, in_channels, out_channels):
+    def __init__(self, split_param, m, in_channels, out_channels, flag=True):
         super(ASTP, self).__init__()
         self.split_param = split_param
         self.m = m
         self.hpp = nn.ModuleList([
             GeMHPP(bin_num=[1]) for i in range(self.m)])
 
-        self.proj = BasicConv2d(in_channels, out_channels, 1, 1, 0)
+        self.flag = flag
+        if self.flag:
+            self.proj = BasicConv2d(in_channels, out_channels, 1, 1, 0)
 
-        self.TP = PackSequenceWrapper(torch.max)
+
+        self.SP1 = PackSequenceWrapper(torch.max)
     def forward(self, x, seqL):
         x = self.SP1(x, seqL=seqL, options={"dim": 2})[0]
-        x = self.proj(x)
+        if self.flag:
+            x = self.proj(x)
         feat = x.split(self.split_param, 2)
         feat = torch.cat([self.hpp[i](_) for i, _ in enumerate(feat)], -1)
         return feat
@@ -159,16 +164,24 @@ class HSTL(BaseModel):
                 3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
         )
 
-        self.astp3 = ASTP(split_param=[8, 32, 16, 8], m=4, in_channels=in_c[2], out_channels=in_c[-1])
+        self.astp3 = ASTP(split_param=[8, 32, 16, 8], m=4, in_channels=in_c[2], out_channels=in_c[-1], flag=False)
 
-        self.astp4 = ASTP(split_param=[8, 8, 8, 8, 8, 8, 8, 8], m=8, in_channels=in_c[2], out_channels=in_c[-1])
+        # self.astp4 = ASTP(split_param=[1,1,1,1,1,1,1,1,
+        #                                1,1,1,1,1,1,1,1,
+        #                                1,1,1,1,1,1,1,1,
+        #                                1,1,1,1,1,1,1,1,
+        #                                1,1,1,1,1,1,1,1,
+        #                                1,1,1,1,1,1,1,1,
+        #                                1,1,1,1,1,1,1,1,
+        #                                1,1,1,1,1,1,1,1], m=64, in_channels=in_c[2], out_channels=in_c[-1])
+        self.HPP = GeMHPP()
 
         # separable fully connected layer (SeFC)
-        self.Head0 = SeparateFCs(17, in_c[-1], in_c[-1])
+        self.Head0 = SeparateFCs(73, in_c[-1], in_c[-1])
         # batchnorm layer (BN)
         self.Bn = nn.BatchNorm1d(in_c[-1])
         # separable fully connected layer (SeFC)
-        self.Head1 = SeparateFCs(17, in_c[-1], class_num)
+        self.Head1 = SeparateFCs(73, in_c[-1], class_num)
         # Temporal Pooling (TP)
         self.TP = PackSequenceWrapper(torch.max)
 
@@ -185,14 +198,16 @@ class HSTL(BaseModel):
             repeat = 3 if s == 1 else 2
             sils = sils.repeat(1, 1, repeat, 1, 1)
         outs = self.arme1(sils)
-        astp1 = self.astp1(outs)
+        astp1 = self.astp1(outs, seqL)
         outs = self.arme2(outs)
-        astp2 = self.astp2(outs)
+        astp2 = self.astp2(outs, seqL)
         outs = self.fta(outs)
-        astp2_fta = self.astp2_fta(outs)
+        astp2_fta = self.astp2_fta(outs, seqL)
         outs = self.arme3(outs)
-        astp3 = self.astp3(outs)
-        astp4 = self.astp4(outs)
+        astp3 = self.astp3(outs, seqL)
+        astp4 = self.TP(outs, seqL=seqL, options={"dim": 2})[0]  # [n, c, h, w]
+        astp4 = self.HPP(astp4)
+        # astp4 = self.astp4(outs, seqL)
         outs = torch.cat([astp1,astp2, astp2_fta, astp3, astp4], dim=-1) # [n, c, p]
         outs = outs.permute(2, 0, 1).contiguous()  # [p, n, c]
         gait = self.Head0(outs)  # [p, n, c]
