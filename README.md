@@ -14,6 +14,10 @@ and a CPU model Intel(R) Core(TM) i7-9800X @ 3.80GHz.
 - opencv-python
 - tqdm
 
+# Checkpoints
+The checkpoints for CASIA-B [link](https://drive.google.com/file/d/1rwGjBRMqptgYwhv_oJfLV1LNZLoB8iQh/view?usp=share_link)
+
+
 # Acknowledgement
 * The codebase is based on [OpenGait](https://github.com/ShiqiYu/OpenGait).
 
