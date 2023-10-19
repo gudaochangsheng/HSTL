@@ -15,7 +15,7 @@ and a CPU model Intel(R) Core(TM) i7-9800X @ 3.80GHz.
 - tqdm
 
 # Checkpoints
-The checkpoints for CASIA-B [link](https://drive.google.com/file/d/1rwGjBRMqptgYwhv_oJfLV1LNZLoB8iQh/view?usp=share_link)
+The checkpoints for CASIA-B [link](https://drive.google.com/file/d/1keZBtWr9O8gfeqBB9qHNbZ-96Eh6LggB/view?usp=sharing)
 
 
 # Acknowledgement
