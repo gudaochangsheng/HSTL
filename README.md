@@ -4,7 +4,7 @@ This is the code for the paper [Hierarchical Spatio-Temporal Representation Lear
 
 # Operating Environments
 ## Hardware Environment
-Our code is running on a server with 2 GeForce RTX 3090 GPUs 
+Our code is running on a server with 8 GeForce RTX 3090 GPUs 
 and a CPU model Intel(R) Core(TM) i7-9800X @ 3.80GHz.
 ## Software Environment
 - pytorch = 1.10
