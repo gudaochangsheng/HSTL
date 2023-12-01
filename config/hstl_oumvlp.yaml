@@ -2,7 +2,7 @@
 data_cfg:
   dataset_name: OUMVLP
   dataset_root: your path
-  dataset_partition: ./datasets/OUMVLP/OUMVLP.json
+  dataset_partition: ./misc/partitions/OUMVLP.json
   num_workers: 1
   remove_no_gallery: false
   test_dataset_name: OUMVLP
