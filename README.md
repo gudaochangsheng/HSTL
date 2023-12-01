@@ -1,6 +1,6 @@
 # HSTL
 
-This is the code for the paper [Hierarchical Spatio-Temporal Representation Learning for Gait Recognition](https://arxiv.org/abs/2307.09856).
+This is the code for the paper [Hierarchical Spatio-Temporal Representation Learning for Gait Recognition](https://openaccess.thecvf.com/content/ICCV2023/papers/Wang_Hierarchical_Spatio-Temporal_Representation_Learning_for_Gait_Recognition_ICCV_2023_paper.pdf).
 
 # Operating Environments
 ## Hardware Environment
