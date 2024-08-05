@@ -3,6 +3,9 @@
 This is the code for the paper [Hierarchical Spatio-Temporal Representation Learning for Gait Recognition](https://openaccess.thecvf.com/content/ICCV2023/papers/Wang_Hierarchical_Spatio-Temporal_Representation_Learning_for_Gait_Recognition_ICCV_2023_paper.pdf).
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/hierarchical-spatio-temporal-representation/gait-recognition-in-the-wild-on-gait3d)](https://paperswithcode.com/sota/gait-recognition-in-the-wild-on-gait3d?p=hierarchical-spatio-temporal-representation)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/hierarchical-spatio-temporal-representation/gait-recognition-on-gait3d)](https://paperswithcode.com/sota/gait-recognition-on-gait3d?p=hierarchical-spatio-temporal-representation)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/hierarchical-spatio-temporal-representation/gait-recognition-on-oumvlp)](https://paperswithcode.com/sota/gait-recognition-on-oumvlp?p=hierarchical-spatio-temporal-representation)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/hierarchical-spatio-temporal-representation/multiview-gait-recognition-on-casia-b)](https://paperswithcode.com/sota/multiview-gait-recognition-on-casia-b?p=hierarchical-spatio-temporal-representation)
 
 # Operating Environments
 ## Hardware Environment
