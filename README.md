@@ -176,7 +176,7 @@ If you find this project useful, please consider citing our paper:
 ```
 
 
-## Star History
+## ⭐ Star History
 
 <a href="https://www.star-history.com/?repos=gudaochangsheng%2FHSTL&type=date&legend=top-left">
  <picture>
